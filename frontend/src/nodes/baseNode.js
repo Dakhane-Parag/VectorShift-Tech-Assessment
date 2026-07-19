@@ -126,7 +126,6 @@ const NodeField = ({ field, value, onChange, accentFocus }) => {
       <div className="vs-field">
         <span className="vs-label">{field.label}</span>
         <textarea
-          className="vs-input"
           value={value}
           rows={3}
           style={{ resize: 'vertical', ...focusStyle }}

@@ -84,7 +84,6 @@ export const SubmitButton = () => {
 
   const dagColor = result?.is_dag ? '#22c55e' : '#ef4444';
   const dagIcon = result?.is_dag ? 'check_circle' : 'error';
-  const dagLabel = result?.is_dag ? 'Valid Pipeline' : 'Cycle Detected';
   
   // Use a subtle glow based on validity
   const modalBoxShadow = result?.is_dag 
@@ -126,34 +125,6 @@ export const SubmitButton = () => {
     alignItems: 'center',
     gap: '12px',
   };
-
-  const statContainerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-  };
-
-  const statRowStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '14px 18px',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.05)',
-    borderRadius: '12px',
-  };
-
-  const statLabelStyle = {
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.6)',
-    fontWeight: '500',
-  };
-
-  const statValueStyle = (color) => ({
-    fontSize: '18px',
-    fontWeight: '700',
-    color: color || '#fff',
-  });
 
   const closeBtnStyle = {
     width: '100%',

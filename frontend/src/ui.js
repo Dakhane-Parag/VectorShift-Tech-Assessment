@@ -74,7 +74,7 @@ export const PipelineUI = () => {
       position,
       data: { id: nodeID, nodeType: type },
     });
-  }, [reactFlowInstance]);
+  }, [reactFlowInstance, addNode, getNodeID]);
 
   const onDragOver = useCallback((event) => {
     event.preventDefault();
