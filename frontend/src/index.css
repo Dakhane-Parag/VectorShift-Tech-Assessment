@@ -1,0 +1,779 @@
+/* index.css — VectorShift Design System
+   Based on Google Stitch "Application Shell" design
+   Theme: Deep dark glassmorphism with indigo/violet accent palette
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block');
+
+/* ── CSS Variables (Design Tokens) ─────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --surface:                  #15121b;
+  --surface-dim:              #15121b;
+  --surface-bright:           #3c3742;
+  --surface-container-lowest: #100d16;
+  --surface-container-low:    #1d1a24;
+  --surface-container:        #221e28;
+  --surface-container-high:   #2c2833;
+  --surface-container-highest:#37333e;
+
+  /* On-Surface */
+  --on-surface:         #e8dfee;
+  --on-surface-variant: #ccc3d8;
+
+  /* Accents */
+  --primary:            #d2bbff;
+  --primary-container:  #7c3aed;
+  --on-primary:         #3f008e;
+  --on-primary-container: #ede0ff;
+  --secondary:          #ffb0cd;
+  --secondary-container:#aa0266;
+  --tertiary:           #ffb784;
+  --tertiary-container: #a15100;
+
+  /* Outline */
+  --outline:         #958da1;
+  --outline-variant: #4a4455;
+
+  /* Semantic */
+  --error:           #ffb4ab;
+  --error-container: #93000a;
+  --background:      #15121b;
+
+  /* Radii */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ── Reset & Base ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  width: 100%; height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── App Shell Layout ───────────────────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #080B12;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────────  */
+.sidebar {
+  width: 256px;
+  min-width: 256px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(29, 26, 36, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 4px 0 32px rgba(124,58,237,0.05);
+  z-index: 50;
+  padding: 24px 16px;
+  gap: 0;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), min-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.sidebar.collapsed {
+  width: 76px;
+  min-width: 76px;
+  padding: 24px 12px;
+}
+
+.sidebar.collapsed .brand-text,
+.sidebar.collapsed .sidebar-section-label,
+.sidebar.collapsed .chip-label,
+.sidebar.collapsed .btn-primary {
+  display: none;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  margin-bottom: 28px;
+}
+
+.sidebar.collapsed .sidebar-brand {
+  padding: 0;
+  justify-content: center;
+}
+
+.sidebar-brand h1 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--on-surface);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.sidebar-brand .plan-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.sidebar-toggle {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.sidebar-toggle:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.sidebar-toggle:active {
+  transform: scale(0.95);
+}
+
+.sidebar-toggle .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.sidebar-avatar {
+  width: 32px; height: 32px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--primary-container);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: white; font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sidebar-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0 8px;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+
+.node-library {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.node-library::-webkit-scrollbar { display: none; }
+
+.node-chips-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 0;
+}
+
+/* ── Draggable Node Chip (Sidebar) ──────────────────────────────────────────── */
+.node-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  cursor: grab;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  transform-origin: center left;
+  white-space: nowrap;
+}
+
+.sidebar.collapsed .node-chip {
+  justify-content: center;
+  padding: 10px 0;
+  transform-origin: center center;
+}
+
+.node-chip:hover {
+  background: rgba(255,255,255,0.07);
+  transform: translateX(4px) scale(1.02);
+}
+
+.node-chip:active { 
+  cursor: grabbing; 
+  transform: translateX(2px) scale(0.96);
+  opacity: 0.8;
+}
+
+.node-chip .chip-icon {
+  font-size: 18px;
+  font-family: 'Material Symbols Outlined';
+  font-weight: 300;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.node-chip .chip-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-surface);
+}
+
+/* Per-node chip accent colors */
+.node-chip.chip-input    { --chip-color: #3b82f6; }
+.node-chip.chip-llm      { --chip-color: #a855f7; }
+.node-chip.chip-output   { --chip-color: #22c55e; }
+.node-chip.chip-text     { --chip-color: #f59e0b; }
+.node-chip.chip-condition{ --chip-color: #f97316; }
+.node-chip.chip-api      { --chip-color: #06b6d4; }
+.node-chip.chip-transform{ --chip-color: #ec4899; }
+.node-chip.chip-note     { --chip-color: #6b7280; }
+.node-chip.chip-timer    { --chip-color: #14b8a6; }
+
+.node-chip:hover {
+  border-color: color-mix(in srgb, var(--chip-color) 50%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--chip-color) 30%, transparent);
+}
+
+.node-chip .chip-icon { color: var(--chip-color); }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  background: linear-gradient(135deg, var(--primary-container) 0%, #EC4899 100%);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  letter-spacing: 0.3px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(124,58,237,0.3);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+  transform: scale(1);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 28px rgba(124,58,237,0.5);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-primary:active { 
+  transform: scale(0.96); 
+  box-shadow: 0 0 8px rgba(124,58,237,0.4);
+}
+
+/* ── Main Content (Header + Canvas) ─────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Top Header ─────────────────────────────────────────────────────────────── */
+.top-header {
+  height: 56px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(21, 18, 27, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  z-index: 40;
+  position: relative;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb .workspace {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-surface-variant);
+}
+
+.breadcrumb .separator {
+  font-size: 16px;
+  color: var(--on-surface-variant);
+  opacity: 0.5;
+  font-family: 'Material Symbols Outlined';
+}
+
+.breadcrumb .workflow-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  padding: 7px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.2s, background 0.2s;
+  font-family: 'Material Symbols Outlined';
+  font-size: 20px;
+  line-height: 1;
+}
+
+.icon-btn:hover {
+  color: var(--primary);
+  background: rgba(255,255,255,0.05);
+}
+
+.header-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.08);
+  margin: 0 6px;
+}
+
+/* ── Canvas Area ─────────────────────────────────────────────────────────────── */
+.canvas-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-color: #080B12;
+}
+
+/* ReactFlow override — remove default white bg */
+.react-flow {
+  background: transparent !important;
+}
+
+.react-flow__background {
+  display: none !important; /* we use our own CSS dot-grid */
+}
+
+.react-flow__controls {
+  background: rgba(17,24,39,0.9) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
+  overflow: hidden;
+  bottom: 24px !important;
+  left: 24px !important;
+}
+
+.react-flow__controls-button {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  color: var(--on-surface-variant) !important;
+  transition: color 0.2s, background 0.2s !important;
+  fill: var(--on-surface-variant) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(255,255,255,0.05) !important;
+  fill: var(--primary) !important;
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: none !important;
+}
+
+.react-flow__minimap {
+  background: rgba(17,24,39,0.9) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
+  bottom: 24px !important;
+  right: 24px !important;
+}
+
+.react-flow__minimap-mask { fill: rgba(124,58,237,0.1) !important; }
+
+/* Edge styling */
+.react-flow__edge-path {
+  stroke: rgba(210,187,255,0.4) !important;
+  stroke-width: 2 !important;
+  transition: stroke 0.2s, stroke-width 0.2s, filter 0.2s !important;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: rgba(210,187,255,0.8) !important;
+  stroke-width: 3 !important;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--primary) !important;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 12px rgba(124,58,237,0.9));
+}
+
+.react-flow__connection-line {
+  stroke: var(--primary) !important;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 8px rgba(124,58,237,0.5));
+}
+
+/* Node selection & dragging */
+.react-flow__node.selected > div {
+  box-shadow: 0 0 0 2px var(--primary), 0 0 20px rgba(124,58,237,0.4) !important;
+}
+
+.react-flow__node.dragging .vs-node {
+  transform: scale(1.03) !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1) !important;
+  opacity: 0.9;
+}
+
+/* Rectangle Selection Box */
+.react-flow__selection {
+  background: rgba(124,58,237,0.15) !important;
+  border: 1px dashed rgba(124,58,237,0.8) !important;
+  border-radius: 4px;
+}
+
+/* ── Empty Canvas Hint ───────────────────────────────────────────────────────── */
+.canvas-empty-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hint-card {
+  background: rgba(17,24,39,0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius-xl);
+  padding: 40px 48px;
+  text-align: center;
+  max-width: 380px;
+  box-shadow: 0 8px 48px rgba(124,58,237,0.1);
+}
+
+.hint-icon-wrap {
+  width: 64px; height: 64px;
+  border-radius: var(--radius-full);
+  background: rgba(124,58,237,0.15);
+  border: 1px solid rgba(124,58,237,0.3);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.hint-icon {
+  font-family: 'Material Symbols Outlined';
+  font-size: 32px;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.hint-card h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+
+.hint-card p {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  line-height: 1.6;
+}
+
+/* ── Scrollbar global ────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--outline-variant); border-radius: 2px; }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PREMIUM NODE CARDS — Glassmorphism Design System
+   States: default · hover · selected
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Base Node Card ──────────────────────────────────────────────────────────── */
+.vs-node {
+  position: relative;
+  min-width: 220px;
+  border-radius: 14px;
+  background: rgba(22, 18, 32, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  overflow: visible;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1);
+  cursor: default;
+}
+
+/* ── Hover state ─────────────────────────────────────────────────────────────── */
+.vs-node:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* ── Active state ────────────────────────────────────────────────────────────── */
+.vs-node:active {
+  transform: translateY(0px) scale(0.98);
+}
+/* per-accent hover handled inline via JS state */
+
+/* ── Selected state (ReactFlow injects .selected on the wrapper) ─────────────── */
+.react-flow__node.selected .vs-node {
+  border-color: transparent;
+}
+
+/* ── Accent Top Bar ──────────────────────────────────────────────────────────── */
+.vs-node-header {
+  padding: 10px 14px 9px;
+  border-radius: 13px 13px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer overlay on header */
+.vs-node-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.vs-node-icon {
+  font-family: 'Material Symbols Outlined';
+  font-size: 16px;
+  line-height: 1;
+  color: rgba(255,255,255,0.9);
+  font-weight: 300;
+}
+
+.vs-node-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.95);
+}
+
+/* ── Node Body ───────────────────────────────────────────────────────────────── */
+.vs-node-body {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Field Group (label + control) ──────────────────────────────────────────── */
+.vs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vs-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+}
+
+.vs-input,
+.vs-select {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  color: rgba(255,255,255,0.88);
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 7px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.vs-input::placeholder { color: rgba(255,255,255,0.28); }
+
+.vs-input:focus,
+.vs-select:focus {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.4);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Select arrow */
+.vs-select-wrap {
+  position: relative;
+}
+.vs-select-wrap::after {
+  content: 'expand_more';
+  font-family: 'Material Symbols Outlined';
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  line-height: 1;
+}
+.vs-select { padding-right: 28px; cursor: pointer; }
+.vs-select option { background: #1e1a2a; color: #e0e0e0; }
+
+/* ── ReactFlow Handles — base ─────────────────────────────────────────────────  */
+.react-flow__handle {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  border: 2px solid #0f0b18 !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+  z-index: 10;
+}
+
+.react-flow__handle:hover {
+  transform: scale(1.5) !important;
+}
+
+/* Blue handle (Input node) */
+.handle-blue {
+  background: #3b82f6 !important;
+}
+.handle-blue:hover {
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.35), 0 0 16px rgba(59,130,246,0.6) !important;
+}
+
+/* Green handle (Output node) */
+.handle-green {
+  background: #22c55e !important;
+}
+.handle-green:hover {
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.35), 0 0 16px rgba(34,197,94,0.6) !important;
+}
+
+/* Purple handle (LLM) */
+.handle-purple {
+  background: #a855f7 !important;
+}
+.handle-purple:hover {
+  box-shadow: 0 0 0 4px rgba(168,85,247,0.35), 0 0 16px rgba(168,85,247,0.6) !important;
+}
+
+/* Amber handle (Text) */
+.handle-amber {
+  background: #f59e0b !important;
+}
+.handle-amber:hover {
+  box-shadow: 0 0 0 4px rgba(245,158,11,0.35), 0 0 16px rgba(245,158,11,0.6) !important;
+}
+
+/* Orange handle (Condition) */
+.handle-orange {
+  background: #f97316 !important;
+}
+.handle-orange:hover {
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.35), 0 0 16px rgba(249,115,22,0.6) !important;
+}
+
+/* Cyan handle (API) */
+.handle-cyan {
+  background: #06b6d4 !important;
+}
+.handle-cyan:hover {
+  box-shadow: 0 0 0 4px rgba(6,182,212,0.35), 0 0 16px rgba(6,182,212,0.6) !important;
+}
+
+/* Pink handle (Transform) */
+.handle-pink {
+  background: #ec4899 !important;
+}
+.handle-pink:hover {
+  box-shadow: 0 0 0 4px rgba(236,72,153,0.35), 0 0 16px rgba(236,72,153,0.6) !important;
+}
+
+/* Teal handle (Timer) */
+.handle-teal {
+  background: #14b8a6 !important;
+}
+.handle-teal:hover {
+  box-shadow: 0 0 0 4px rgba(20,184,166,0.35), 0 0 16px rgba(20,184,166,0.6) !important;
+}
+
+/* Gray handle (Note) */
+.handle-gray {
+  background: #6b7280 !important;
+}
+.handle-gray:hover {
+  box-shadow: 0 0 0 4px rgba(107,114,128,0.35), 0 0 16px rgba(107,114,128,0.5) !important;
+}
+
