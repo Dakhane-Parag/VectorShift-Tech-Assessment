@@ -175,7 +175,7 @@ export const SubmitButton = () => {
                   <span className="material-symbols-outlined" style={{ color: '#ef4444', fontSize: '28px' }}>error</span>
                   Connection Error
                 </h2>
-                <div style={{ ...statRowStyle, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: '12px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
                   <span style={{ fontSize: '14px', color: '#fca5a5', lineHeight: '1.5' }}>{error}</span>
                 </div>
               </>
