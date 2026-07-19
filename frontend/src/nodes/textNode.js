@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { BaseNode } from './baseNode';
+import { useStore } from '../store';
 
 // Regex: matches {{ validJSVarName }} — must be a valid JS identifier
 const VARIABLE_REGEX = /\{\{\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\}\}/g;
@@ -80,8 +81,11 @@ export const TextNode = ({ id, data, selected }) => {
     setNodeWidth(newWidth);
   }, [text]);
 
+  const updateNodeField = useStore((state) => state.updateNodeField);
+
   const handleChange = (e) => {
     setText(e.target.value);
+    updateNodeField(id, 'text', e.target.value);
   };
 
   // Construct dynamic handles array for BaseNode

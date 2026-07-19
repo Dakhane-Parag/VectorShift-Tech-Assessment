@@ -184,13 +184,17 @@ export const BaseNode = ({
   const [hovered, setHovered] = useState(false);
   const a = ACCENT_MAP[accent] || ACCENT_MAP.purple;
 
+  const updateNodeField = useStore((state) => state.updateNodeField);
+
   // Build initial state from field defaults
   const [fieldValues, setFieldValues] = useState(() =>
     fields.reduce((acc, f) => ({ ...acc, [f.key]: f.defaultValue ?? '' }), {})
   );
 
-  const handleChange = (key, val) =>
+  const handleChange = (key, val) => {
     setFieldValues((prev) => ({ ...prev, [key]: val }));
+    updateNodeField(id, key, val);
+  };
 
   // Compose box-shadow based on state priority: selected > hover > default
   const boxShadow = selected
