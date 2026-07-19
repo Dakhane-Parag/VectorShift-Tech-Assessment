@@ -6,10 +6,10 @@ from typing import Any
 app = FastAPI()
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
-# Allow the React dev server (port 3000) to call this API.
+# Allow any origin to call this API (useful for separated deployments).
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
